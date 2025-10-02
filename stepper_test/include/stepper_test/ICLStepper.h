@@ -13,6 +13,7 @@ public:
     int jog(bool clockwise = true);
     int set_jog_velocity(int velocity_rpm);
     int set_slave_id(int slave_id);
+    int set_jog_acceleration(int acc);
 
 private:
     int slave_id_;

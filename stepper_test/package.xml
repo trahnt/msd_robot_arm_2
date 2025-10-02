@@ -3,7 +3,7 @@
 <package format="3">
   <name>stepper_test</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
+  <description>stepper motor testing package</description>
   <maintainer email="github.gloomily427@passmail.net">chungus</maintainer>
   <license>TODO: License declaration</license>
 

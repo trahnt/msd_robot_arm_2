@@ -115,6 +115,25 @@ int main() {
                     std::cout << "Set target velocity to " << target_velocity << " for key '" << static_cast<char>(ch) << "'\n";
                 }
 
+                else if (ch == 'z' || ch == 'x' || ch == 'c' || ch == 'v' || ch == 'b' || ch == 'n' || ch == 'm') {
+                    std::cout << "Key '" << static_cast<char>(ch) << "' pressed, move to position.\n";
+                    if (ch == 'v') {
+                        stepper.set_position(0, target_velocity);
+                    } else if (ch == 'b') {
+                        stepper.set_position(10000, target_velocity);
+                    } else if (ch == 'n') {
+                        stepper.set_position(20000, target_velocity);
+                    } else if (ch == 'm') {
+                        stepper.set_position(30000, target_velocity);
+                    } else if (ch == 'c') {
+                        stepper.set_position(-10000, target_velocity);
+                    } else if (ch == 'x') {
+                        stepper.set_position(-20000, target_velocity);
+                    } else if (ch == 'z') {
+                        stepper.set_position(-30000, target_velocity);
+                    }
+                }
+
                 if (ch == 'q') {
                     std::cout << "Quit.\n";
                     return 0;

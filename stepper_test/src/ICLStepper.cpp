@@ -23,14 +23,6 @@ int ICLStepper::initialize() {
     }
     usleep(delay_us_);
 
-    // // set jog acceleration/deceleration
-    // if (modbus_write_register(ctx_, 0x01E7, 10) == -1) {
-    //     std::cerr << "[Slave " << slave_id_ << "] Failed to set jog acc/dec: "
-    //               << modbus_strerror(errno) << std::endl;
-    //     return -1;
-    // }
-    // usleep(delay_us_);
-
     // Example: set a target speed (100)
     if (modbus_write_register(ctx_, 0x01E1, 100) == -1) {
         std::cerr << "[Slave " << slave_id_ << "] Failed to set target speed: "
@@ -129,6 +121,18 @@ int ICLStepper::jog(bool clockwise) {
         return -1;
     }
     // Wait delay_us microseconds
+    usleep(delay_us_);
+
+    return 0;
+}
+
+int ICLStepper::set_jog_acceleration(int acc) {
+    // set jog acceleration/deceleration
+    if (modbus_write_register(ctx_, 0x01E7, acc) == -1) {
+        std::cerr << "[Slave " << slave_id_ << "] Failed to set jog acc/dec: "
+                  << modbus_strerror(errno) << std::endl;
+        return -1;
+    }
     usleep(delay_us_);
 
     return 0;
