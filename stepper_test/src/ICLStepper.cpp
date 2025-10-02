@@ -38,71 +38,32 @@ int ICLStepper::set_position(int position, int velocity_rpm, int acc, int dec) {
     modbus_set_slave(ctx_, slave_id_);
     usleep(delay_us_);
 
-    // 1) PR0 mode: absolute positioning
-    if (modbus_write_register(ctx_, 0x6200, 0x0001) == -1) {
-        std::cerr << "[Slave " << slave_id_ << "] Failed to set PR0 mode: "
-                  << modbus_strerror(errno) << std::endl;
-        return -1;
-    }
-    std::cout << "Set PR0 mode to absolute positioning" << std::endl;
-    usleep(delay_us_);
-
-    // 2) Position high/low
+    // 1) Prepare PR0 configuration block
     uint16_t pos_high = static_cast<uint16_t>((position >> 16) & 0xFFFF);
     uint16_t pos_low  = static_cast<uint16_t>(position & 0xFFFF);
-
-    if (modbus_write_register(ctx_, 0x6201, pos_high) == -1) {
-        std::cerr << "[Slave " << slave_id_ << "] Failed to set PR0 high position: "
+    uint16_t pr0_registers[] = {
+        0x0001,     // mode: absolute positioning
+        pos_high,
+        pos_low,
+        static_cast<uint16_t>(velocity_rpm),
+        static_cast<uint16_t>(acc),
+        static_cast<uint16_t>(dec)
+    };
+    if (modbus_write_registers(ctx_, 0x6200, sizeof(pr0_registers) / sizeof(pr0_registers[0]), pr0_registers) == -1) {
+        std::cerr << "[Slave " << slave_id_ << "] Failed to configure PR0 registers: "
                   << modbus_strerror(errno) << std::endl;
         return -1;
     }
-    std::cout << "Set PR0 high position to " << pos_high << std::endl;
+    std::cout << "Configured PR0 registers (mode, position, velocity, acc/dec)" << std::endl;
     usleep(delay_us_);
 
-    if (modbus_write_register(ctx_, 0x6202, pos_low) == -1) {
-        std::cerr << "[Slave " << slave_id_ << "] Failed to set PR0 low position: "
-                  << modbus_strerror(errno) << std::endl;
-        return -1;
-    }
-    std::cout << "Set PR0 low position to " << pos_low << std::endl;
-    usleep(delay_us_);
-
-    // 3) Velocity
-    if (modbus_write_register(ctx_, 0x6203, static_cast<uint16_t>(velocity_rpm)) == -1) {
-        std::cerr << "[Slave " << slave_id_ << "] Failed to set PR0 velocity: "
-                  << modbus_strerror(errno) << std::endl;
-        return -1;
-    }
-    std::cout << "Set PR0 velocity to " << velocity_rpm << std::endl;
-    usleep(delay_us_);
-
-    // 4) Acc/Dec
-    if (modbus_write_register(ctx_, 0x6204, static_cast<uint16_t>(acc)) == -1) {
-        std::cerr << "[Slave " << slave_id_ << "] Failed to set PR0 acceleration: "
-                  << modbus_strerror(errno) << std::endl;
-        return -1;
-    }
-    std::cout << "Set PR0 acceleration to " << acc << std::endl;
-    usleep(delay_us_);
-
-    if (modbus_write_register(ctx_, 0x6205, static_cast<uint16_t>(dec)) == -1) {
-        std::cerr << "[Slave " << slave_id_ << "] Failed to set PR0 deceleration: "
-                  << modbus_strerror(errno) << std::endl;
-        return -1;
-    }
-    std::cout << "Set PR0 deceleration to " << dec << std::endl;
-    usleep(delay_us_);
-
-    // 5) Trigger PR0 motion
+    // Trigger PR0 motion
     if (modbus_write_register(ctx_, 0x6002, 0x0010) == -1) {
         std::cerr << "[Slave " << slave_id_ << "] Failed to trigger PR0 motion: "
                   << modbus_strerror(errno) << std::endl;
         return -1;
     }
     std::cout << "Triggering PR0 motion" << std::endl;
-
-    // Update cached position (optional; ideally, poll actual position register here)
-    current_position_ = position;
 
     return 0;
 }
