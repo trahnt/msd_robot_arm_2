@@ -8,45 +8,45 @@
                 <!-- By default, set up controllers for simulation. This won't work on real hardware -->
                 <plugin>mock_components/GenericSystem</plugin>
             </hardware>
-            <joint name="Revolute 1">
+            <joint name="Revolute1">
                 <command_interface name="position"/>
                 <state_interface name="position">
-                  <param name="initial_value">${initial_positions['Revolute 1']}</param>
+                  <param name="initial_value">${initial_positions['Revolute1']}</param>
                 </state_interface>
                 <state_interface name="velocity"/>
             </joint>
-            <joint name="Revolute 2">
+            <joint name="Revolute2">
                 <command_interface name="position"/>
                 <state_interface name="position">
-                  <param name="initial_value">${initial_positions['Revolute 2']}</param>
+                  <param name="initial_value">${initial_positions['Revolute2']}</param>
                 </state_interface>
                 <state_interface name="velocity"/>
             </joint>
-            <joint name="Revolute 3">
+            <joint name="Revolute3">
                 <command_interface name="position"/>
                 <state_interface name="position">
-                  <param name="initial_value">${initial_positions['Revolute 3']}</param>
+                  <param name="initial_value">${initial_positions['Revolute3']}</param>
                 </state_interface>
                 <state_interface name="velocity"/>
             </joint>
-            <joint name="Revolute 4">
+            <joint name="Revolute4">
                 <command_interface name="position"/>
                 <state_interface name="position">
-                  <param name="initial_value">${initial_positions['Revolute 4']}</param>
+                  <param name="initial_value">${initial_positions['Revolute4']}</param>
                 </state_interface>
                 <state_interface name="velocity"/>
             </joint>
-            <joint name="Revolute 5">
+            <joint name="Revolute5">
                 <command_interface name="position"/>
                 <state_interface name="position">
-                  <param name="initial_value">${initial_positions['Revolute 5']}</param>
+                  <param name="initial_value">${initial_positions['Revolute5']}</param>
                 </state_interface>
                 <state_interface name="velocity"/>
             </joint>
-            <joint name="Revolute 6">
+            <joint name="Revolute6">
                 <command_interface name="position"/>
                 <state_interface name="position">
-                  <param name="initial_value">${initial_positions['Revolute 6']}</param>
+                  <param name="initial_value">${initial_positions['Revolute6']}</param>
                 </state_interface>
                 <state_interface name="velocity"/>
             </joint>

@@ -67,37 +67,32 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        fake_gripper:
+        gripper_1:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        link_2:
+        link_2_1:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        link_3:
+        link_3_1:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        link_4:
+        link_4_1:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        link_5:
+        link_5_1:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        link_6_fake:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link_7_fake:
+        link_6_1:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -117,19 +112,17 @@ Visualization Manager:
         All Enabled: true
         base_link:
           Value: true
-        fake_gripper:
+        gripper_1:
           Value: true
-        link_2:
+        link_2_1:
           Value: true
-        link_3:
+        link_3_1:
           Value: true
-        link_4:
+        link_4_1:
           Value: true
-        link_5:
+        link_5_1:
           Value: true
-        link_6_fake:
-          Value: true
-        link_7_fake:
+        link_6_1:
           Value: true
       Marker Scale: 0.5
       Name: TF
@@ -138,13 +131,12 @@ Visualization Manager:
       Show Names: false
       Tree:
         base_link:
-          link_2:
-            link_3:
-              link_4:
-                link_5:
-                  link_6_fake:
-                    link_7_fake:
-                      fake_gripper:
+          link_2_1:
+            link_3_1:
+              link_4_1:
+                link_5_1:
+                  link_6_1:
+                      gripper_1:
                         {}
       Update Interval: 0
       Value: true

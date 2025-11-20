@@ -4,6 +4,7 @@
 <xacro:include filename="$(find spotarm_assembly_description)/urdf/materials.xacro" />
 <xacro:include filename="$(find spotarm_assembly_description)/urdf/spotarm_assembly.trans" />
 <xacro:include filename="$(find spotarm_assembly_description)/urdf/spotarm_assembly.gazebo" />
+<xacro:include filename="spotarm_assembly.ros2_control.xacro"/>
 <link name="base_link">
   <inertial>
     <origin xyz="-0.0010206433535600843 0.05102477807067246 0.07813725800807331" rpy="0 0 0"/>
@@ -151,42 +152,43 @@
   </collision>
 </link>
 
-<joint name="Revolute 1" type="continuous">
+<joint name="Revolute1" type="revolute">
   <origin xyz="0.02835 -0.011972 0.033179" rpy="0 0 0"/>
   <parent link="base_link"/>
   <child link="link_2_1"/>
   <axis xyz="-0.0 0.0 1.0"/>
+  <limit lower="-0.436" upper="2.13" effort="30.0" velocity="1.0"/>
 </joint>
 
-<joint name="Revolute 2" type="continuous">
+<joint name="Revolute2" type="continuous">
   <origin xyz="0.046008 0.0 0.076206" rpy="0 0 0"/>
   <parent link="link_2_1"/>
   <child link="link_3_1"/>
   <axis xyz="1.0 -0.0 -0.0"/>
 </joint>
 
-<joint name="Revolute 3" type="continuous">
+<joint name="Revolute3" type="continuous">
   <origin xyz="-0.07256 -0.31369 0.0" rpy="0 0 0"/>
   <parent link="link_3_1"/>
   <child link="link_4_1"/>
   <axis xyz="-1.0 0.0 0.0"/>
 </joint>
 
-<joint name="Revolute 4" type="continuous">
+<joint name="Revolute4" type="continuous">
   <origin xyz="-0.012461 -0.2118 0.0" rpy="0 0 0"/>
   <parent link="link_4_1"/>
   <child link="link_5_1"/>
   <axis xyz="-0.0 -1.0 0.0"/>
 </joint>
 
-<joint name="Revolute 5" type="continuous">
+<joint name="Revolute5" type="continuous">
   <origin xyz="0.0705 -0.143933 0.0" rpy="0 0 0"/>
   <parent link="link_5_1"/>
   <child link="link_6_1"/>
   <axis xyz="1.0 -0.0 -0.0"/>
 </joint>
 
-<joint name="Revolute 6" type="continuous">
+<joint name="Revolute6" type="continuous">
   <origin xyz="0.0127 -0.154763 -0.027289" rpy="0 0 0"/>
   <parent link="link_6_1"/>
   <child link="gripper_1"/>
