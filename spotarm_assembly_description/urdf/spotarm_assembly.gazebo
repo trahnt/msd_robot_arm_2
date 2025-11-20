@@ -3,11 +3,8 @@
 
 <xacro:property name="body_color" value="Gazebo/Silver" />
 
-<!-- Gazebo-specific configuration: loads ros2_control plugin and visuals -->
 <gazebo>
-  <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
-    <parameters>$(find robot_bringup)/config/ros2_controllers.yaml</parameters>
-  </plugin>
+  <plugin name="control" filename="libgazebo_ros_control.so"/>
 </gazebo>
 <gazebo reference="base_link">
   <material>${body_color}</material>
@@ -17,35 +14,42 @@
   <gravity>true</gravity>
 </gazebo>
 
-<gazebo reference="link_2">
+<gazebo reference="link_2_1">
   <material>${body_color}</material>
   <mu1>0.2</mu1>
   <mu2>0.2</mu2>
   <self_collide>true</self_collide>
 </gazebo>
 
-<gazebo reference="link_3">
+<gazebo reference="link_3_1">
   <material>${body_color}</material>
   <mu1>0.2</mu1>
   <mu2>0.2</mu2>
   <self_collide>true</self_collide>
 </gazebo>
 
-<gazebo reference="link_4">
+<gazebo reference="link_4_1">
   <material>${body_color}</material>
   <mu1>0.2</mu1>
   <mu2>0.2</mu2>
   <self_collide>true</self_collide>
 </gazebo>
 
-<gazebo reference="link_5">
+<gazebo reference="link_5_1">
   <material>${body_color}</material>
   <mu1>0.2</mu1>
   <mu2>0.2</mu2>
   <self_collide>true</self_collide>
 </gazebo>
 
-<gazebo reference="fake_gripper">
+<gazebo reference="link_6_1">
+  <material>${body_color}</material>
+  <mu1>0.2</mu1>
+  <mu2>0.2</mu2>
+  <self_collide>true</self_collide>
+</gazebo>
+
+<gazebo reference="gripper_1">
   <material>${body_color}</material>
   <mu1>0.2</mu1>
   <mu2>0.2</mu2>
