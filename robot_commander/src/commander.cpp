@@ -20,12 +20,35 @@ public:
         arm_ = std::make_shared<MoveGroupInterface>(node_, "arm");
         arm_->setMaxVelocityScalingFactor(0.1);
         arm_->setMaxAccelerationScalingFactor(0.1);
+
+        // Separate group for the gripper so we can call named targets like open/close
+        try {
+            hand_ = std::make_shared<MoveGroupInterface>(node_, "hand");
+            hand_->setMaxVelocityScalingFactor(0.5);
+            hand_->setMaxAccelerationScalingFactor(0.5);
+        } catch (const std::exception &e) {
+            RCLCPP_WARN(node_->get_logger(), "Failed to create hand MoveGroupInterface: %s", e.what());
+        }
     }
 
     void goToNamedTarget(const std::string &name){
+        // Try the arm group first
         arm_->setStartStateToCurrentState();
-        arm_->setNamedTarget(name);
-        planAndExecute(arm_);
+        if (arm_->setNamedTarget(name)) {
+            planAndExecute(arm_);
+            return;
+        }
+
+        // Fallback to the hand group for gripper states
+        if (hand_) {
+            hand_->setStartStateToCurrentState();
+            if (hand_->setNamedTarget(name)) {
+                planAndExecute(hand_);
+                return;
+            }
+        }
+
+        RCLCPP_ERROR(node_->get_logger(), "Named target '%s' not found in arm or hand groups", name.c_str());
     }
 
     void goToJointTarget(const std::vector<double> &joints){
@@ -79,6 +102,7 @@ private:
     }
     std::shared_ptr<rclcpp::Node> node_;
     std::shared_ptr<MoveGroupInterface> arm_;
+    std::shared_ptr<MoveGroupInterface> hand_;
 };
 
 int main(int argc, char **argv){

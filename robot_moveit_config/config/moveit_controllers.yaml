@@ -19,8 +19,6 @@ moveit_simple_controller_manager:
     action_ns: follow_joint_trajectory
     default: true
   hand_controller:
-    type: GripperCommand
+    type: FollowJointTrajectory
     joints:
-      - Revolute6
-    action_ns: gripper_cmd
-    default: true
+      - gripper_right_finger_joint

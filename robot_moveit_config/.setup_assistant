@@ -5,9 +5,9 @@ moveit_setup_assistant_config:
   srdf:
     relative_path: config/spotarm_assembly.srdf
   package_settings:
-    author_name: Kyle
-    author_email: khb8668@rit.edu
-    generated_timestamp: 1763649723
+    author_name: chungus
+    author_email: todo@todo.com
+    generated_timestamp: 1764533361
   control_xacro:
     command:
       - position
