@@ -152,7 +152,7 @@
   </collision>
 </link>
 
-<link name="gripper_right_finger">
+<!-- <link name="gripper_right_finger">
   <inertial>
     <origin xyz="0 0 0" rpy="0 0 0"/>
     <mass value="0.05"/>
@@ -192,7 +192,7 @@
       <box size="0.005 0.02 0.0192"/>
     </geometry>
   </collision>
-</link>
+</link> -->
 
 <joint name="Revolute1" type="revolute">
   <origin xyz="0.02835 -0.011972 0.033179" rpy="0 0 0"/>
@@ -237,7 +237,7 @@
   <axis xyz="0.0 0.984808 0.173648"/>
 </joint>
 
-<joint name="gripper_right_finger_joint" type="prismatic">
+<!-- <joint name="gripper_right_finger_joint" type="prismatic">
   <parent link="gripper_1"/>
   <child link="gripper_right_finger"/>
   <origin xyz="-0.021 -0.0965 -0.0170" rpy="0.175 0 0"/>
@@ -252,6 +252,6 @@
   <axis xyz="-1 0 0"/>
   <mimic joint="gripper_right_finger_joint"/>
   <limit lower="0.0" upper="0.0185" effort="10.0" velocity="0.02"/>
-</joint>
+</joint> -->
 
 </robot>

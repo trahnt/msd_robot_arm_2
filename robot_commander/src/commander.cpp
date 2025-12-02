@@ -20,15 +20,6 @@ public:
         arm_ = std::make_shared<MoveGroupInterface>(node_, "arm");
         arm_->setMaxVelocityScalingFactor(0.1);
         arm_->setMaxAccelerationScalingFactor(0.1);
-
-        // Separate group for the gripper so we can call named targets like open/close
-        try {
-            hand_ = std::make_shared<MoveGroupInterface>(node_, "hand");
-            hand_->setMaxVelocityScalingFactor(0.5);
-            hand_->setMaxAccelerationScalingFactor(0.5);
-        } catch (const std::exception &e) {
-            RCLCPP_WARN(node_->get_logger(), "Failed to create hand MoveGroupInterface: %s", e.what());
-        }
     }
 
     void goToNamedTarget(const std::string &name){
