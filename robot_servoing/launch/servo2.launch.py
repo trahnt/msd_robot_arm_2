@@ -71,13 +71,13 @@ def generate_launch_description():
     controller_manager_spawner_jsb_node = Node(
         package='controller_manager',
         executable='spawner',
-        arguments=['joint_state_broadcaster']
+        arguments=['joint_state_broadcaster', '--controller-manager', '/controller_manager']
     )
 
     controller_manager_spawner_arm_controller_node = Node(
         package='controller_manager',
         executable='spawner',
-        arguments=['arm_controller']
+        arguments=['arm_controller', '--controller-manager', '/controller_manager']
     )
 
     rviz_node = Node(
@@ -109,6 +109,13 @@ def generate_launch_description():
         package='rclcpp_components',
         executable='component_container_mt',
         composable_node_descriptions=[
+            # ComposableNode(
+            #     package='controller_manager',
+            #     plugin='controller_manager::ControllerManager',
+            #     name='controller_manager',
+            #     parameters=[os.path.join(robot_bringup_share_dir, 'config', 'ros2_controllers.yaml'),
+            #                 {'robot_description': robot_urdf}],
+            # ),
             ComposableNode(
                 package='robot_servoing',
                 plugin='robot_servoing::MyJoyToServoPub',
@@ -132,17 +139,18 @@ def generate_launch_description():
             moveit_config.robot_description_semantic,
             moveit_config.robot_description_kinematics,
         ],
-        output='screen'
+        output='screen',
+        remappings=[("/servo_node/outgoing_joint_trajectory", "/arm_controller/joint_trajectory")]
     )
 
     return LaunchDescription([
         gui_arg,
+        controller_manager_node,
         robot_state_publisher_node,
         joint_state_publisher_node,
-        move_group_launch,
-        controller_manager_node,
         controller_manager_spawner_jsb_node,
         controller_manager_spawner_arm_controller_node,
+        move_group_launch,
         rviz_node,
         servo_node,
         controller_container
